@@ -9,21 +9,24 @@ import java.util.Date
 import java.util.Locale
 
 /**
+ * ライフサイクルイベントのログ情報を保持するデータクラス
+ */
+data class LifecycleLog(val event: Lifecycle.Event, val timestamp: String)
+
+/**
  * ライフサイクルイベントのリストを管理するViewModel
  */
 class LifecycleViewModel : ViewModel() {
 
-    // 外部には読み取り専用のStateFlowを公開し、ViewModel内でのみ値を変更できるようにする
-    private val _lifecycleEvents = MutableStateFlow<List<String>>(emptyList())
-    val lifecycleEvents: StateFlow<List<String>> = _lifecycleEvents
+    private val _lifecycleEvents = MutableStateFlow<List<LifecycleLog>>(emptyList())
+    val lifecycleEvents: StateFlow<List<LifecycleLog>> = _lifecycleEvents
 
     /**
      * 新しいライフサイクルイベントをリストに追加します。
      */
     fun addEvent(event: Lifecycle.Event) {
         val timestamp = SimpleDateFormat("HH:mm:ss.SSS", Locale.JAPAN).format(Date())
-        val newEvent = "$timestamp: ${event.name}"
-        // 現在のリストに新しいイベントを追加した新しいリストを生成してStateFlowを更新
-        _lifecycleEvents.value = _lifecycleEvents.value + newEvent
+        val newLog = LifecycleLog(event, timestamp)
+        _lifecycleEvents.value = _lifecycleEvents.value + newLog
     }
 }

@@ -26,8 +26,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
@@ -48,7 +50,6 @@ fun LifecycleScreen(
     // DisposableEffectを使ってライフサイクルイベントを監視します
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
-            // 状態を直接更新する代わりに、ViewModelのメソッドを呼び出す
             viewModel.addEvent(event)
         }
 
@@ -71,7 +72,7 @@ fun LifecycleScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Lifecycle Observer with ViewModel") }, // タイトルを更新
+                title = { Text("Lifecycle Observer with ViewModel") },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.primary,
@@ -119,9 +120,21 @@ fun LifecycleScreen(
                 state = listState,
                 modifier = Modifier.fillMaxSize()
             ) {
-                items(lifecycleEvents) { event ->
+                items(lifecycleEvents) { log ->
+                    val color = when (log.event) {
+                        Lifecycle.Event.ON_CREATE,
+                        Lifecycle.Event.ON_START,
+                        Lifecycle.Event.ON_RESUME -> Color.Blue
+
+                        Lifecycle.Event.ON_PAUSE,
+                        Lifecycle.Event.ON_STOP -> Color.Gray
+
+                        Lifecycle.Event.ON_DESTROY -> Color.Red
+                        else -> MaterialTheme.colorScheme.onSurface
+                    }
                     Text(
-                        text = event,
+                        text = "${log.timestamp}: ${log.event.name}",
+                        color = color,
                         fontFamily = FontFamily.Monospace,
                         modifier = Modifier.padding(vertical = 4.dp)
                     )
