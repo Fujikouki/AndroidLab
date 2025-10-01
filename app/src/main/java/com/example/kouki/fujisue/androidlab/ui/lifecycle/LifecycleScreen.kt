@@ -21,41 +21,39 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LifecycleScreen() {
+fun LifecycleScreen(
+    viewModel: LifecycleViewModel = viewModel()
+) {
     val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
-    var lifecycleEvents by remember { mutableStateOf(listOf<String>()) }
+
+    // ViewModelからライフサイクルイベントのリストを購読
+    val lifecycleEvents by viewModel.lifecycleEvents.collectAsState()
+
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
 
     // DisposableEffectを使ってライフサイクルイベントを監視します
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
-            val timestamp = SimpleDateFormat("HH:mm:ss.SSS", Locale.US).format(Date())
-            val newEvent = "$timestamp: ${event.name}"
-            lifecycleEvents = lifecycleEvents + newEvent
+            // 状態を直接更新する代わりに、ViewModelのメソッドを呼び出す
+            viewModel.addEvent(event)
         }
 
-        // オブザーバー（監視者）をライフサイクルに追加
         lifecycleOwner.lifecycle.addObserver(observer)
 
-        // コンポーザブルが破棄されるときにオブザーバーを削除（クリーンアップ）
         onDispose {
             lifecycleOwner.lifecycle.removeObserver(observer)
         }
@@ -65,7 +63,7 @@ fun LifecycleScreen() {
     LaunchedEffect(lifecycleEvents.size) {
         if (lifecycleEvents.isNotEmpty()) {
             coroutineScope.launch {
-                listState.animateScrollToItem(lifecycleEvents.size - 1)
+                listState.animateScrollToItem(index = lifecycleEvents.size - 1)
             }
         }
     }
@@ -73,7 +71,7 @@ fun LifecycleScreen() {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Lifecycle Observer") },
+                title = { Text("Lifecycle Observer with ViewModel") }, // タイトルを更新
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.primary,
@@ -94,7 +92,7 @@ fun LifecycleScreen() {
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
-                        "この画面のライフサイクルイベントを監視しています。",
+                        "ViewModelを使ってライフサイクルイベントを監視しています。",
                         style = MaterialTheme.typography.titleMedium
                     )
                     Spacer(modifier = Modifier.height(8.dp))
@@ -106,7 +104,7 @@ fun LifecycleScreen() {
                     Text(
                         "• ホームボタンを押して、再度アプリを開く\n" +
                                 "• 他の画面に移動して、この画面に戻る\n" +
-                                "• 端末を回転させる",
+                                "• 端末を回転させる (状態が保持されることを確認)",
                         style = MaterialTheme.typography.bodySmall
                     )
                 }
