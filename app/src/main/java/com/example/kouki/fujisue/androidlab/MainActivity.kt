@@ -30,6 +30,7 @@ import com.example.kouki.fujisue.androidlab.ui.notification.NotificationScreen
 import com.example.kouki.fujisue.androidlab.ui.other.OtherScreen
 import com.example.kouki.fujisue.androidlab.ui.permission.PermissionsScreen
 import com.example.kouki.fujisue.androidlab.ui.sideeffect.SideEffectScreen
+import com.example.kouki.fujisue.androidlab.ui.storage.StorageScreen
 import com.example.kouki.fujisue.androidlab.ui.text.TextScreen
 import com.example.kouki.fujisue.androidlab.ui.theme.AndroidLabTheme
 import com.example.kouki.fujisue.androidlab.ui.theming.ThemeMode
@@ -98,8 +99,7 @@ fun AppContent() {
                 NetworkingScreen()
             }
             composable<Route.StorageScreen> {
-                // TODO: StorageScreenを実装する
-                Text("StorageScreen")
+                StorageScreen()
             }
             composable<Route.AnimationScreen> {
                 AnimationScreen()
