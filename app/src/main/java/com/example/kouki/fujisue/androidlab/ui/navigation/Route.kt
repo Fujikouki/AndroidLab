@@ -85,4 +85,10 @@ object Route {
      */
     @Serializable
     data object CameraScreen
+
+    /**
+     * GPS（位置情報）を学ぶ画面
+     */
+    @Serializable
+    data object LocationScreen
 }
