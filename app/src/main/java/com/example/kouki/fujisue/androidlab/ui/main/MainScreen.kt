@@ -35,6 +35,7 @@ fun MainScreen(navController: NavController) {
         Route.AnimationScreen to "アニメーションを試す画面",
         Route.ThemingScreen to "テーマ設定を学ぶ画面",
         Route.OtherScreen to "その他のUIコンポーネントを試す画面",
+        Route.TouchingScreen to "タッチ操作を学ぶ画面",
         Route.StateManagementScreen to "状態管理を試す画面",
         Route.NetworkingScreen to "ネットワークリクエストとデータ表示を学ぶ画面",
         Route.StorageScreen to "データ永続化を学ぶ画面"

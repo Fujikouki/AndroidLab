@@ -71,4 +71,10 @@ object Route {
      */
     @Serializable
     data object OtherScreen
+
+    /**
+     *  タップ操作について学ぶ
+     */
+    @Serializable
+    data object TouchingScreen
 }
