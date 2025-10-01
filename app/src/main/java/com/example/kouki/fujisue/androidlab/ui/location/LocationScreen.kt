@@ -172,7 +172,9 @@ private fun LocationUpdatesButton(
             )
         }
         onDispose {
-            fusedLocationClient.removeLocationUpdates(locationCallback)
+            if (isUpdating) {
+                fusedLocationClient.removeLocationUpdates(locationCallback)
+            }
         }
     }
 
