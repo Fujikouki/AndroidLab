@@ -1,5 +1,6 @@
 package com.example.kouki.fujisue.androidlab.ui.dialog
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -29,9 +30,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.example.kouki.fujisue.androidlab.R
 import com.example.kouki.fujisue.androidlab.ui.theme.AndroidLabTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,6 +44,7 @@ fun DialogScreen() {
     var showSimpleDialog by remember { mutableStateOf(false) }
     var showIconDialog by remember { mutableStateOf(false) }
     var showCustomDialog by remember { mutableStateOf(false) }
+    var showImageDialog by remember { mutableStateOf(false) }
     var dialogResult by remember { mutableStateOf("なし") }
 
     Scaffold(
@@ -73,6 +78,10 @@ fun DialogScreen() {
 
             Button(onClick = { showCustomDialog = true }) {
                 Text("カスタムダイアログを表示")
+            }
+
+            Button(onClick = { showImageDialog = true }) {
+                Text("画像付きダイアログを表示")
             }
         }
     }
@@ -163,6 +172,49 @@ fun DialogScreen() {
                         modifier = Modifier.align(Alignment.End)
                     ) {
                         Text("閉じる")
+                    }
+                }
+            }
+        }
+    }
+
+    // 画像付きカスタムDialog
+    if (showImageDialog) {
+        Dialog(onDismissRequest = { showImageDialog = false }) {
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = MaterialTheme.shapes.large,
+                elevation = CardDefaults.cardElevation(8.dp)
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Image(
+                        painter = painterResource(id = R.drawable.icon),
+                        contentDescription = "Beautiful landscape",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(180.dp)
+                    )
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text(
+                            text = "今日のピックアップ",
+                            style = MaterialTheme.typography.titleLarge
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "この美しい景色をご覧ください。",
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        TextButton(
+                            onClick = {
+                                dialogResult = "画像付きダイアログを閉じました"
+                                showImageDialog = false
+                            },
+                            modifier = Modifier.align(Alignment.End)
+                        ) {
+                            Text("素晴らしい！")
+                        }
                     }
                 }
             }
