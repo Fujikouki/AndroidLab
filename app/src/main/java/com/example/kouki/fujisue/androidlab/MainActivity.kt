@@ -14,6 +14,7 @@ import com.example.kouki.fujisue.androidlab.ui.button.ButtonScreen
 import com.example.kouki.fujisue.androidlab.ui.dialog.DialogScreen
 import com.example.kouki.fujisue.androidlab.ui.image.ImageScreen
 import com.example.kouki.fujisue.androidlab.ui.input.InputScreen
+import com.example.kouki.fujisue.androidlab.ui.layout.LayoutsScreen
 import com.example.kouki.fujisue.androidlab.ui.list.ListScreen
 import com.example.kouki.fujisue.androidlab.ui.main.MainScreen
 import com.example.kouki.fujisue.androidlab.ui.navigation.Route
@@ -57,8 +58,7 @@ fun AppContent() {
                 InputScreen()
             }
             composable<Route.LayoutsScreen> {
-                // TODO: LayoutsScreenを実装する
-                Text("LayoutsScreen")
+                LayoutsScreen()
             }
             composable<Route.StateManagementScreen> {
                 // TODO: StateManagementScreenを実装する
