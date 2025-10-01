@@ -149,9 +149,17 @@ fun BoxExample() {
 
         Box(
             modifier = Modifier
+                .padding(start = 200.dp)
+                .size(60.dp)
+                .background(Color.Green)
+                .align(Alignment.TopStart)
+        )
+
+        Box(
+            modifier = Modifier
                 .size(60.dp)
                 .background(Color.Red)
-                .align(Alignment.TopStart) // 親Boxの右下に配置
+                .align(Alignment.TopStart) // 親Boxの左上に配置
         )
 
         Text("Box Layout", color = Color.White)
