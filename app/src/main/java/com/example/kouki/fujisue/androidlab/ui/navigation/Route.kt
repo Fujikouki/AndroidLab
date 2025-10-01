@@ -59,4 +59,10 @@ object Route {
     /** アプリのテーマ設定 (ライト/ダークテーマ、ダイナミックカラー) を学ぶ画面 */
     @Serializable
     data object ThemingScreen
+
+    /**
+     * 通知を学ぶ画面
+     */
+    @Serializable
+    data object NotificationScreen
 }

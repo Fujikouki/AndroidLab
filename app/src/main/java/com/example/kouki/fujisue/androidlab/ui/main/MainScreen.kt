@@ -28,14 +28,15 @@ fun MainScreen(navController: NavController) {
         Route.ImageScreen to "画像の表示を試す画面",
         Route.ListScreen to "リスト表示を試す画面",
         Route.DialogScreen to "ダイアログ表示を試す画面",
-        Route.InputScreen to "ユーザー入力を試す画面 (TextField, Checkbox, Switch, Sliderなど)",
-        Route.LayoutsScreen to "Jetpack Composeのレイアウト方法を学ぶ画面 (Column, Row, Box, ConstraintLayoutなど)",
-        Route.StateManagementScreen to "状態管理を試す画面 (ViewModel, remember, LaunchedEffectなど)",
+        Route.InputScreen to "ユーザー入力を試す画面",
+        Route.LayoutsScreen to "レイアウト方法を学ぶ画面",
         Route.PermissionsScreen to "実行時パーミッションの扱い方を学ぶ画面",
+        Route.NotificationScreen to "通知を学ぶ画面",
+        Route.StateManagementScreen to "状態管理を試す画面",
         Route.NetworkingScreen to "ネットワークリクエストとデータ表示を学ぶ画面",
-        Route.StorageScreen to "データ永続化 (SharedPreferences, Room) を学ぶ画面",
-        Route.AnimationScreen to "Jetpack Composeのアニメーションを試す画面",
-        Route.ThemingScreen to "アプリのテーマ設定 (ライト/ダークテーマ、ダイナミックカラー) を学ぶ画面"
+        Route.StorageScreen to "データ永続化を学ぶ画面",
+        Route.AnimationScreen to "アニメーションを試す画面",
+        Route.ThemingScreen to "テーマ設定を学ぶ画面"
     )
 
     Scaffold(
