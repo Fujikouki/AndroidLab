@@ -14,7 +14,7 @@ interface TodoDao {
      * すべてのTODOアイテムを取得し、変更を監視します。
      * 未完了のアイテムを上に、完了済みのアイテムを下に表示するように並べ替えます。
      */
-    @Query("SELECT * FROM todo_table ORDER BY isCompleted ASC, id DESC")
+    @Query("SELECT * FROM todo_table ORDER BY id DESC")
     fun getAllTodos(): Flow<List<TodoItem>>
 
     /**
