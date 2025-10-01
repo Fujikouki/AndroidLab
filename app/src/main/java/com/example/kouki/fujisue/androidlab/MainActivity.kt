@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.kouki.fujisue.androidlab.ui.button.ButtonScreen
+import com.example.kouki.fujisue.androidlab.ui.image.ImageScreen
 import com.example.kouki.fujisue.androidlab.ui.main.MainScreen
 import com.example.kouki.fujisue.androidlab.ui.navigation.Route
 import com.example.kouki.fujisue.androidlab.ui.text.TextScreen
@@ -41,8 +42,7 @@ fun AppContent() {
                 ButtonScreen()
             }
             composable<Route.ImageScreen> {
-                // TODO: ImageScreenを実装する
-                Text("ImageScreen")
+                ImageScreen()
             }
             composable<Route.ListScreen> {
                 // TODO: ListScreenを実装する
