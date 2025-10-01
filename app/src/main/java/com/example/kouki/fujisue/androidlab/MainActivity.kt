@@ -4,8 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -23,6 +28,8 @@ import com.example.kouki.fujisue.androidlab.ui.notification.NotificationScreen
 import com.example.kouki.fujisue.androidlab.ui.permission.PermissionsScreen
 import com.example.kouki.fujisue.androidlab.ui.text.TextScreen
 import com.example.kouki.fujisue.androidlab.ui.theme.AndroidLabTheme
+import com.example.kouki.fujisue.androidlab.ui.theming.ThemeMode
+import com.example.kouki.fujisue.androidlab.ui.theming.ThemingScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +43,19 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun AppContent() {
-    AndroidLabTheme {
+    var themeMode by remember { mutableStateOf(ThemeMode.System) }
+    val useDynamicColor = remember { mutableStateOf(true) }
+
+    val isDark = when (themeMode) {
+        ThemeMode.System -> isSystemInDarkTheme()
+        ThemeMode.Light -> false
+        ThemeMode.Dark -> true
+    }
+
+    AndroidLabTheme(
+        darkTheme = isDark,
+        dynamicColor = useDynamicColor.value
+    ) {
         val navController = rememberNavController()
         NavHost(navController = navController, startDestination = Route.Main) {
             composable<Route.Main> {
@@ -82,8 +101,12 @@ fun AppContent() {
                 AnimationScreen()
             }
             composable<Route.ThemingScreen> {
-                // TODO: ThemingScreenを実装する
-                Text("ThemingScreen")
+                ThemingScreen(
+                    currentThemeMode = themeMode,
+                    isDynamicColorEnabled = useDynamicColor.value,
+                    onThemeModeChange = { themeMode = it },
+                    onDynamicColorToggle = { useDynamicColor.value = it }
+                )
             }
             composable<Route.NotificationScreen> {
                 NotificationScreen()
