@@ -10,6 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.kouki.fujisue.androidlab.ui.animation.AnimationScreen
 import com.example.kouki.fujisue.androidlab.ui.button.ButtonScreen
 import com.example.kouki.fujisue.androidlab.ui.dialog.DialogScreen
 import com.example.kouki.fujisue.androidlab.ui.image.ImageScreen
@@ -78,8 +79,7 @@ fun AppContent() {
                 Text("StorageScreen")
             }
             composable<Route.AnimationScreen> {
-                // TODO: AnimationScreenを実装する
-                Text("AnimationScreen")
+                AnimationScreen()
             }
             composable<Route.ThemingScreen> {
                 // TODO: ThemingScreenを実装する
