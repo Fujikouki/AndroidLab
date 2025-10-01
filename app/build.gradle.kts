@@ -55,6 +55,12 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.constraintlayout.compose)
+
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.okhttp)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
