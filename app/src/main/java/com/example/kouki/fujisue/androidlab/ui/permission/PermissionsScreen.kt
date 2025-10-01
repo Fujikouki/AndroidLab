@@ -85,6 +85,10 @@ fun PermissionsScreen() {
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
+            Text(
+                text = "注意：一度明示的に拒否をされると、アプリ側からは申請できなくなります。",
+                color = MaterialTheme.colorScheme.error
+            )
         }
     }
 }
