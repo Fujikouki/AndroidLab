@@ -177,7 +177,7 @@ fun MarsPhotoCard(photo: MarsPhoto, modifier: Modifier = Modifier) {
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(photo.imgSrc?.replace("http://", "https://")) // httpsに置換 & null-safe
+                .data(photo.imgSrc)
                 .crossfade(true)
                 .build(),
             contentDescription = "Mars Photo",
