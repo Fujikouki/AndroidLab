@@ -1,6 +1,8 @@
 package com.example.kouki.fujisue.androidlab.ui.input
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,12 +18,16 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
@@ -45,6 +51,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -80,6 +87,10 @@ fun InputScreen() {
     val timePickerState = rememberTimePickerState()
     var selectedTime by remember { mutableStateOf("未選択") }
 
+    // Menu state
+    var menuExpanded by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -87,7 +98,47 @@ fun InputScreen() {
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.primary,
-                )
+                ),
+                actions = {
+                    Box {
+                        IconButton(onClick = { menuExpanded = true }) {
+                            Icon(Icons.Default.MoreVert, contentDescription = "詳細")
+                        }
+                        DropdownMenu(
+                            expanded = menuExpanded,
+                            onDismissRequest = { menuExpanded = false }
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text("入力内容をリセット") },
+                                onClick = {
+                                    textValue = ""
+                                    outlinedTextValue = ""
+                                    passwordValue = ""
+                                    isChecked = false
+                                    isSwitched = false
+                                    onOptionSelected(radioOptions[0])
+                                    sliderPosition = 0f
+                                    selectedDate = "未選択"
+                                    selectedTime = "未選択"
+                                    menuExpanded = false
+                                    Toast.makeText(context, "リセットしました", Toast.LENGTH_SHORT)
+                                        .show()
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text("情報") },
+                                onClick = {
+                                    Toast.makeText(
+                                        context,
+                                        "入力コンポーネントのサンプル画面です",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    menuExpanded = false
+                                }
+                            )
+                        }
+                    }
+                }
             )
         }
     ) { paddingValues ->
