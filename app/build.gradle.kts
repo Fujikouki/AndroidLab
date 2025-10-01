@@ -39,12 +39,12 @@ android {
     buildFeatures {
         compose = true
     }
-    // Roomのスキーマ出力先を指定
-    ksp {
-        arg("room.schemaLocation", "$projectDir/schemas")
-    }
 }
 
+// Roomのスキーマ出力先を指定
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}
 
 dependencies {
 
