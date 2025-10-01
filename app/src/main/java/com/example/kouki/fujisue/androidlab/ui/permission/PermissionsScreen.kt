@@ -73,6 +73,12 @@ fun PermissionsScreen() {
                 permissionName = "位置情報"
             )
 
+            // マイク権限
+            PermissionRequestRow(
+                permission = Manifest.permission.RECORD_AUDIO,
+                permissionName = "マイク"
+            )
+
             // 通知権限 (Android 13以上)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 PermissionRequestRow(
