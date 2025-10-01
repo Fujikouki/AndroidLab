@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -87,10 +86,6 @@ fun AppContent() {
             }
             composable<Route.LayoutsScreen> {
                 LayoutsScreen()
-            }
-            composable<Route.StateManagementScreen> {
-                // TODO: StateManagementScreenを実装する
-                Text("StateManagementScreen")
             }
             composable<Route.PermissionsScreen> {
                 PermissionsScreen()

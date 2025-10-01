@@ -36,10 +36,6 @@ object Route {
     @Serializable
     data object LayoutsScreen
 
-    /** 状態管理を試す画面 (ViewModel, remember, LaunchedEffectなど) */
-    @Serializable
-    data object StateManagementScreen
-
     /** 実行時パーミッションの扱い方を学ぶ画面 */
     @Serializable
     data object PermissionsScreen
