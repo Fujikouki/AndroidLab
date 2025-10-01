@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.kouki.fujisue.androidlab.ui.button.ButtonScreen
 import com.example.kouki.fujisue.androidlab.ui.image.ImageScreen
+import com.example.kouki.fujisue.androidlab.ui.input.InputScreen
 import com.example.kouki.fujisue.androidlab.ui.list.ListScreen
 import com.example.kouki.fujisue.androidlab.ui.main.MainScreen
 import com.example.kouki.fujisue.androidlab.ui.navigation.Route
@@ -53,8 +54,7 @@ fun AppContent() {
                 Text("DialogScreen")
             }
             composable<Route.InputScreen> {
-                // TODO: InputScreenを実装する
-                Text("InputScreen")
+                InputScreen()
             }
             composable<Route.LayoutsScreen> {
                 // TODO: LayoutsScreenを実装する
