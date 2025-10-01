@@ -13,6 +13,7 @@ nav_version = "2.9.4"
 serialization = "1.9.0"
 coil = "2.7.0"
 constraintlayout = "1.1.1"
+room_version = "2.8.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -48,6 +49,11 @@ ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negoti
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor_version" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor_version" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor_version" }
+
+# Room
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room_version" }
+androidx-room-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room_version" }
+androidx-room-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room_version" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
