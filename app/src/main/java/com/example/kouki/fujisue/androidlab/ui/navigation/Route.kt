@@ -65,4 +65,10 @@ object Route {
      */
     @Serializable
     data object NotificationScreen
+
+    /**
+     * その他のUIコンポーネントを学ぶ画面
+     */
+    @Serializable
+    data object OtherScreen
 }

@@ -25,6 +25,7 @@ import com.example.kouki.fujisue.androidlab.ui.list.ListScreen
 import com.example.kouki.fujisue.androidlab.ui.main.MainScreen
 import com.example.kouki.fujisue.androidlab.ui.navigation.Route
 import com.example.kouki.fujisue.androidlab.ui.notification.NotificationScreen
+import com.example.kouki.fujisue.androidlab.ui.other.OtherScreen
 import com.example.kouki.fujisue.androidlab.ui.permission.PermissionsScreen
 import com.example.kouki.fujisue.androidlab.ui.text.TextScreen
 import com.example.kouki.fujisue.androidlab.ui.theme.AndroidLabTheme
@@ -110,6 +111,9 @@ fun AppContent() {
             }
             composable<Route.NotificationScreen> {
                 NotificationScreen()
+            }
+            composable<Route.OtherScreen> {
+                OtherScreen()
             }
         }
     }

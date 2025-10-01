@@ -32,11 +32,12 @@ fun MainScreen(navController: NavController) {
         Route.LayoutsScreen to "レイアウト方法を学ぶ画面",
         Route.PermissionsScreen to "実行時パーミッションの扱い方を学ぶ画面",
         Route.NotificationScreen to "通知を学ぶ画面",
+        Route.AnimationScreen to "アニメーションを試す画面",
+        Route.ThemingScreen to "テーマ設定を学ぶ画面",
+        Route.OtherScreen to "その他のUIコンポーネントを試す画面",
         Route.StateManagementScreen to "状態管理を試す画面",
         Route.NetworkingScreen to "ネットワークリクエストとデータ表示を学ぶ画面",
-        Route.StorageScreen to "データ永続化を学ぶ画面",
-        Route.AnimationScreen to "アニメーションを試す画面",
-        Route.ThemingScreen to "テーマ設定を学ぶ画面"
+        Route.StorageScreen to "データ永続化を学ぶ画面"
     )
 
     Scaffold(
