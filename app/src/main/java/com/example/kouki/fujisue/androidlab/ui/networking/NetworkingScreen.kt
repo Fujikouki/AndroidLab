@@ -1,6 +1,5 @@
 package com.example.kouki.fujisue.androidlab.ui.networking
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,73 +29,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.okhttp.OkHttp
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.request.get
-import io.ktor.client.statement.bodyAsText
-import io.ktor.serialization.kotlinx.json.json
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
 
-// --- Ktor Client ---
-object KtorClient {
-    // JSONパーサーをここで定義
-    val jsonParser = Json { ignoreUnknownKeys = true }
-
-    val httpClient = HttpClient(OkHttp) {
-        // ContentNegotiationは今回は使われないが、他のAPIで必要になる可能性を考慮して残しておく
-        install(ContentNegotiation) {
-            json(jsonParser)
-        }
-    }
-}
-
-// --- ViewModel ---
-sealed interface MarsUiState {
-    data object Initial : MarsUiState
-    data object Loading : MarsUiState
-    data class Success(val photos: List<MarsPhoto>) : MarsUiState
-    data class Error(val message: String) : MarsUiState
-}
-
-class NetworkingViewModel : ViewModel() {
-    private val _uiState = MutableStateFlow<MarsUiState>(MarsUiState.Initial)
-    val uiState: StateFlow<MarsUiState> = _uiState.asStateFlow()
-
-    fun fetchMarsPhotos() {
-        viewModelScope.launch {
-            _uiState.value = MarsUiState.Loading
-            try {
-                // 1. レスポンスをまずStringとして受け取る
-                val responseText =
-                    KtorClient.httpClient.get("https://android-kotlin-fun-mars-server.appspot.com/photos")
-                        .bodyAsText()
-                // 2. 受け取ったStringを手動でデコードする
-                val photos = KtorClient.jsonParser.decodeFromString<List<MarsPhoto>>(responseText)
-
-                // imgSrcがnullや空でない、有効なデータのみをUIに渡す
-                val validPhotos =
-                    photos.filter { !it.id.isNullOrBlank() && !it.imgSrc.isNullOrBlank() }
-                _uiState.value = MarsUiState.Success(validPhotos)
-
-            } catch (e: Exception) {
-                Log.e("NetworkingViewModel", "Error fetching Mars photos", e)
-                _uiState.value = MarsUiState.Error(e.message ?: "An unknown error occurred")
-            }
-        }
-    }
-}
-
-// --- UI ---
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NetworkingScreen(viewModel: NetworkingViewModel = viewModel()) {
