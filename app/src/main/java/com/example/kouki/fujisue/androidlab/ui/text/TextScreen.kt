@@ -32,6 +32,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
@@ -173,6 +174,37 @@ fun TextScreen() {
                     color = Color.Red
                 )
             }
+            Spacer(Modifier.height(8.dp))
+
+            Text("文字間隔の広いテキスト", letterSpacing = 4.sp)
+            Spacer(Modifier.height(8.dp))
+
+            Text("取り消し線のあるテキスト", textDecoration = TextDecoration.LineThrough)
+            Spacer(Modifier.height(8.dp))
+
+            Text("右揃えのテキスト", textAlign = TextAlign.End, modifier = Modifier.fillMaxWidth())
+            Spacer(Modifier.height(8.dp))
+
+            Text(buildAnnotatedString {
+                append("H")
+                withStyle(
+                    style = SpanStyle(
+                        baselineShift = BaselineShift.Subscript,
+                        fontSize = 12.sp
+                    )
+                ) {
+                    append("2")
+                }
+                append("O と X")
+                withStyle(
+                    style = SpanStyle(
+                        baselineShift = BaselineShift.Superscript,
+                        fontSize = 12.sp
+                    )
+                ) {
+                    append("2")
+                }
+            })
             Spacer(Modifier.height(16.dp))
 
             Text("MaterialTheme のタイポグラフィを使用:")
