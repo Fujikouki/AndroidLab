@@ -1,5 +1,6 @@
 package com.example.kouki.fujisue.androidlab.ui.storage
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -36,9 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.kouki.fujisue.androidlab.AndroidLabApplication
 
-
-// --- UI ---
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class) // ★ アニメーションのために追加
 @Composable
 fun StorageScreen() {
     val context = LocalContext.current
@@ -97,6 +96,7 @@ fun StorageScreen() {
                 LazyColumn(modifier = Modifier.weight(1f)) {
                     items(todos, key = { it.id }) { todo ->
                         TodoItemCard(
+                            modifier = Modifier.animateItemPlacement(),
                             todo = todo,
                             onToggle = { todoViewModel.toggleCompleted(todo) },
                             onDelete = { todoViewModel.delete(todo) }
@@ -118,9 +118,14 @@ fun StorageScreen() {
 }
 
 @Composable
-fun TodoItemCard(todo: TodoItem, onToggle: () -> Unit, onDelete: () -> Unit) {
+fun TodoItemCard(
+    modifier: Modifier = Modifier,
+    todo: TodoItem,
+    onToggle: () -> Unit,
+    onDelete: () -> Unit
+) {
     Card(
-        modifier = Modifier
+        modifier = modifier // ★ 外部から渡されたModifierを使用
             .fillMaxWidth()
             .padding(vertical = 4.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
@@ -135,11 +140,12 @@ fun TodoItemCard(todo: TodoItem, onToggle: () -> Unit, onDelete: () -> Unit) {
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
+                modifier = Modifier.weight(1f), // ★ テキストが押し出されないようにweightを適用
                 text = todo.text,
                 textDecoration = if (todo.isCompleted) TextDecoration.LineThrough else null,
                 color = if (todo.isCompleted) Color.Gray else MaterialTheme.colorScheme.onSurface
             )
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.width(8.dp))
             Button(onClick = { onDelete() }) {
                 Text("削除")
             }
