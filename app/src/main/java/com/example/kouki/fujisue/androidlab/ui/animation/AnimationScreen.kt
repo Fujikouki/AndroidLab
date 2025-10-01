@@ -1,10 +1,17 @@
 package com.example.kouki.fujisue.androidlab.ui.animation
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.animateColor
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
@@ -20,12 +27,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Button
-import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -41,6 +48,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -73,42 +81,30 @@ fun AnimationScreen() {
 
             SectionTitle("animateColorAsState")
             ColorAnimationExample()
-
-            HorizontalDivider(
-                modifier = Modifier.padding(vertical = 16.dp),
-                thickness = DividerDefaults.Thickness,
-                color = DividerDefaults.color
-            )
+            HorizontalDivider(Modifier.padding(vertical = 16.dp))
 
             SectionTitle("animateDpAsState")
             SizeAnimationExample()
-
-            HorizontalDivider(
-                modifier = Modifier.padding(vertical = 16.dp),
-                thickness = DividerDefaults.Thickness,
-                color = DividerDefaults.color
-            )
+            HorizontalDivider(Modifier.padding(vertical = 16.dp))
 
             SectionTitle("AnimatedVisibility")
             VisibilityAnimationExample()
-
-            HorizontalDivider(
-                modifier = Modifier.padding(vertical = 16.dp),
-                thickness = DividerDefaults.Thickness,
-                color = DividerDefaults.color
-            )
+            HorizontalDivider(Modifier.padding(vertical = 16.dp))
 
             SectionTitle("animateContentSize")
             ContentSizeAnimationExample()
-
-            HorizontalDivider(
-                modifier = Modifier.padding(vertical = 16.dp),
-                thickness = DividerDefaults.Thickness,
-                color = DividerDefaults.color
-            )
+            HorizontalDivider(Modifier.padding(vertical = 16.dp))
 
             SectionTitle("Crossfade")
             CrossfadeAnimationExample()
+            HorizontalDivider(Modifier.padding(vertical = 16.dp))
+
+            SectionTitle("updateTransition")
+            TransitionAnimationExample()
+            HorizontalDivider(Modifier.padding(vertical = 16.dp))
+
+            SectionTitle("rememberInfiniteTransition")
+            InfiniteAnimationExample()
 
             Spacer(modifier = Modifier.height(16.dp))
         }
@@ -228,7 +224,7 @@ fun CrossfadeAnimationExample() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        androidx.compose.animation.Crossfade(
+        Crossfade(
             targetState = screenState,
             animationSpec = tween(500),
             label = "Crossfade"
@@ -241,7 +237,6 @@ fun CrossfadeAnimationExample() {
                         modifier = Modifier.size(100.dp)
                     )
                 }
-
                 Screen.Stop -> {
                     Icon(
                         imageVector = Icons.Default.Close,
@@ -257,6 +252,73 @@ fun CrossfadeAnimationExample() {
         }) {
             Text("切り替え")
         }
+    }
+}
+
+private enum class BoxState { Collapsed, Expanded }
+
+@Composable
+fun TransitionAnimationExample() {
+    var boxState by remember { mutableStateOf(BoxState.Collapsed) }
+    val transition = updateTransition(targetState = boxState, label = "Box Transition")
+
+    val color by transition.animateColor(label = "Color") { state ->
+        when (state) {
+            BoxState.Collapsed -> MaterialTheme.colorScheme.primary
+            BoxState.Expanded -> MaterialTheme.colorScheme.secondary
+        }
+    }
+    val size by transition.animateDp(label = "Size") { state ->
+        when (state) {
+            BoxState.Collapsed -> 100.dp
+            BoxState.Expanded -> 150.dp
+        }
+    }
+    val cornerRadius by transition.animateDp(label = "Corner Radius") { state ->
+        when (state) {
+            BoxState.Collapsed -> 8.dp
+            BoxState.Expanded -> 32.dp
+        }
+    }
+
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .size(size)
+                .clip(RoundedCornerShape(cornerRadius))
+                .background(color)
+        )
+        Button(onClick = {
+            boxState = if (boxState == BoxState.Collapsed) BoxState.Expanded else BoxState.Collapsed
+        }) {
+            Text("トランジション実行")
+        }
+    }
+}
+
+@Composable
+fun InfiniteAnimationExample() {
+    val infiniteTransition = rememberInfiniteTransition(label = "Infinite Transition")
+    val color by infiniteTransition.animateColor(
+        initialValue = Color.Red,
+        targetValue = Color.Blue,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1500),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "Infinite Color"
+    )
+
+    Box(
+        modifier = Modifier
+            .size(100.dp)
+            .background(color),
+        contentAlignment = Alignment.Center
+    ) {
+        Text("無限アニメーション")
     }
 }
 
