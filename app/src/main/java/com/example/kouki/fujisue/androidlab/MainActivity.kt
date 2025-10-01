@@ -27,6 +27,7 @@ import com.example.kouki.fujisue.androidlab.ui.navigation.Route
 import com.example.kouki.fujisue.androidlab.ui.notification.NotificationScreen
 import com.example.kouki.fujisue.androidlab.ui.other.OtherScreen
 import com.example.kouki.fujisue.androidlab.ui.permission.PermissionsScreen
+import com.example.kouki.fujisue.androidlab.ui.sideeffect.SideEffectScreen
 import com.example.kouki.fujisue.androidlab.ui.text.TextScreen
 import com.example.kouki.fujisue.androidlab.ui.theme.AndroidLabTheme
 import com.example.kouki.fujisue.androidlab.ui.theming.ThemeMode
@@ -118,6 +119,9 @@ fun AppContent() {
             }
             composable<Route.TouchingScreen> {
                 TouchingScreen()
+            }
+            composable<Route.SideEffectScreen> {
+                SideEffectScreen()
             }
         }
     }

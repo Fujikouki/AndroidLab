@@ -77,4 +77,10 @@ object Route {
      */
     @Serializable
     data object TouchingScreen
+
+    /**
+     * Composeの副作用について学ぶ
+     */
+    @Serializable
+    data object SideEffectScreen
 }
