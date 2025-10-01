@@ -18,6 +18,7 @@ import com.example.kouki.fujisue.androidlab.ui.layout.LayoutsScreen
 import com.example.kouki.fujisue.androidlab.ui.list.ListScreen
 import com.example.kouki.fujisue.androidlab.ui.main.MainScreen
 import com.example.kouki.fujisue.androidlab.ui.navigation.Route
+import com.example.kouki.fujisue.androidlab.ui.permission.PermissionsScreen
 import com.example.kouki.fujisue.androidlab.ui.text.TextScreen
 import com.example.kouki.fujisue.androidlab.ui.theme.AndroidLabTheme
 
@@ -65,8 +66,7 @@ fun AppContent() {
                 Text("StateManagementScreen")
             }
             composable<Route.PermissionsScreen> {
-                // TODO: PermissionsScreenを実装する
-                Text("PermissionsScreen")
+                PermissionsScreen()
             }
             composable<Route.NetworkingScreen> {
                 // TODO: NetworkingScreenを実装する
