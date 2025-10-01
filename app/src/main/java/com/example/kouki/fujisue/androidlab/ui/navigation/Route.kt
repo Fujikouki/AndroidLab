@@ -83,4 +83,10 @@ object Route {
      */
     @Serializable
     data object SideEffectScreen
+
+    /**
+     * カメラ機能を学ぶ
+     */
+    @Serializable
+    data object CameraScreen
 }
