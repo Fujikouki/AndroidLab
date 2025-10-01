@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.kouki.fujisue.androidlab.ui.main.MainScreen
 import com.example.kouki.fujisue.androidlab.ui.navigation.Route
+import com.example.kouki.fujisue.androidlab.ui.text.TextScreen
 import com.example.kouki.fujisue.androidlab.ui.theme.AndroidLabTheme
 
 class MainActivity : ComponentActivity() {
@@ -33,8 +34,7 @@ fun AppContent() {
                 MainScreen(navController = navController)
             }
             composable<Route.TextScreen> {
-                // TODO: TextScreenを実装する
-                Text("TextScreen")
+                TextScreen()
             }
             composable<Route.ButtonScreen> {
                 // TODO: ButtonScreenを実装する
