@@ -1,5 +1,8 @@
 package com.example.kouki.fujisue.androidlab.ui.storage
 
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.VisibilityThreshold
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -33,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.kouki.fujisue.androidlab.AndroidLabApplication
@@ -89,14 +93,19 @@ fun StorageScreen() {
 
             Spacer(modifier = Modifier.padding(16.dp))
 
-            // TODOリスト
             if (todos.isEmpty()) {
                 Text("まだTODOがありません。", modifier = Modifier.padding(top = 16.dp))
             } else {
                 LazyColumn(modifier = Modifier.weight(1f)) {
                     items(todos, key = { it.id }) { todo ->
                         TodoItemCard(
-                            modifier = Modifier.animateItemPlacement(),
+                            modifier = Modifier.animateItem(
+                                fadeInSpec = null, fadeOutSpec = null,
+                                placementSpec = spring(
+                                    stiffness = Spring.StiffnessMediumLow,
+                                    visibilityThreshold = IntOffset.VisibilityThreshold
+                                )
+                            ),
                             todo = todo,
                             onToggle = { todoViewModel.toggleCompleted(todo) },
                             onDelete = { todoViewModel.delete(todo) }
