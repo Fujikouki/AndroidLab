@@ -25,6 +25,7 @@ import com.example.kouki.fujisue.androidlab.ui.layout.LayoutsScreen
 import com.example.kouki.fujisue.androidlab.ui.list.ListScreen
 import com.example.kouki.fujisue.androidlab.ui.main.MainScreen
 import com.example.kouki.fujisue.androidlab.ui.navigation.Route
+import com.example.kouki.fujisue.androidlab.ui.networking.NetworkingScreen
 import com.example.kouki.fujisue.androidlab.ui.notification.NotificationScreen
 import com.example.kouki.fujisue.androidlab.ui.other.OtherScreen
 import com.example.kouki.fujisue.androidlab.ui.permission.PermissionsScreen
@@ -94,8 +95,7 @@ fun AppContent() {
                 PermissionsScreen()
             }
             composable<Route.NetworkingScreen> {
-                // TODO: NetworkingScreenを実装する
-                Text("NetworkingScreen")
+                NetworkingScreen()
             }
             composable<Route.StorageScreen> {
                 // TODO: StorageScreenを実装する
