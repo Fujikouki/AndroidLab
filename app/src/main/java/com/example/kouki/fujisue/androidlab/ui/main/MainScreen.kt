@@ -39,7 +39,8 @@ fun MainScreen(navController: NavController) {
         Route.SideEffectScreen to "副作用について学ぶ画面",
         Route.CameraScreen to "カメラ機能を学ぶ画面",
         Route.NetworkingScreen to "ネットワークリクエストとデータ表示を学ぶ画面",
-        Route.StorageScreen to "データ永続化を学ぶ画面"
+        Route.StorageScreen to "データ永続化を学ぶ画面",
+        Route.LocationScreen to "GPS（位置情報）を学ぶ画面"
     )
 
     Scaffold(

@@ -22,6 +22,7 @@ import com.example.kouki.fujisue.androidlab.ui.image.ImageScreen
 import com.example.kouki.fujisue.androidlab.ui.input.InputScreen
 import com.example.kouki.fujisue.androidlab.ui.layout.LayoutsScreen
 import com.example.kouki.fujisue.androidlab.ui.list.ListScreen
+import com.example.kouki.fujisue.androidlab.ui.location.LocationScreen
 import com.example.kouki.fujisue.androidlab.ui.main.MainScreen
 import com.example.kouki.fujisue.androidlab.ui.navigation.Route
 import com.example.kouki.fujisue.androidlab.ui.networking.NetworkingScreen
@@ -121,6 +122,9 @@ fun AppContent() {
             }
             composable<Route.CameraScreen> {
                 CameraScreen()
+            }
+            composable<Route.LocationScreen> {
+                LocationScreen()
             }
         }
     }
