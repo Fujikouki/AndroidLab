@@ -67,6 +67,12 @@ fun PermissionsScreen() {
                 permissionName = "カメラ"
             )
 
+            // 位置情報権限
+            PermissionRequestRow(
+                permission = Manifest.permission.ACCESS_COARSE_LOCATION,
+                permissionName = "位置情報"
+            )
+
             // 通知権限 (Android 13以上)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 PermissionRequestRow(
