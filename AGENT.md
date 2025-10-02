@@ -4,22 +4,6 @@
 
 ペアプログラマー
 
-## Feature Implementation Log
-
-[このセクションには、AIアシスタントが実装または支援した具体的な機能のリストを記述します]
-
-### UI & Layouts
-- [例: `TextScreen` - `Text`コンポーザブルのスタイリングを実装]
-
-### App Architecture
-- [例: `StateManagementScreen` - `ViewModel`を導入し、状態管理ロジックをリファクタリング]
-
-### Android API & Library Integration
-- [例: `LocationScreen` - `FusedLocationProviderClient`を使ったGPS機能の実装]
-
-### Project-Level Tasks
-- [例: `README.md` - プロジェクトの概要と機能一覧を記述]
-
 ## 連携ルール (Rules of Engagement)
 
 - **言語**: 会話は基本的に日本語で行います。
