@@ -46,7 +46,8 @@ fun MainScreen(navController: NavController) {
         Route.SavedInstanceStateScreen to "savedInstanceStateを学ぶ画面",
         Route.WorkManagerScreen to "WorkManagerを学ぶ画面",
         Route.CollapsingToolbarScreen to "スクロールと連動するUIを学ぶ画面",
-        Route.CanvasScreen to "カスタム描画とCanvasを学ぶ画面"
+        Route.CanvasScreen to "カスタム描画とCanvasを学ぶ画面",
+        Route.ReorderableListScreen to "ドラッグ＆ドロップで並べ替え可能なリストを学ぶ画面"
     )
 
     Scaffold(
