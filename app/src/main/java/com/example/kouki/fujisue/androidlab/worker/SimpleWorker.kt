@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 
 /**
@@ -19,9 +20,10 @@ class SimpleWorker(appContext: Context, workerParams: WorkerParameters) :
         try {
             // 5秒待機する（時間のかかる処理をシミュレート）
             delay(5000)
-        } catch (e: InterruptedException) {
-            Log.e(TAG, "タスクが中断されました", e)
-            return Result.failure()
+        } catch (e: CancellationException) {
+            Log.w(TAG, "バックグラウンドタスクがキャンセルされました", e)
+            // キャンセル例外を再スローして、WorkManagerにキャンセルを正しく伝えます
+            throw e
         }
 
         Log.d(TAG, "バックグラウンドタスクが正常に完了しました")
