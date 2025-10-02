@@ -23,7 +23,6 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,7 +31,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.viewmodel.compose.viewModel
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,7 +43,6 @@ fun LifecycleScreen(
     val lifecycleEvents by viewModel.lifecycleEvents.collectAsState()
 
     val listState = rememberLazyListState()
-    val coroutineScope = rememberCoroutineScope()
 
     // DisposableEffectを使ってライフサイクルイベントを監視します
     DisposableEffect(lifecycleOwner) {
@@ -63,9 +60,7 @@ fun LifecycleScreen(
     // 新しいイベントが追加されたときにリストの最下部に自動スクロールします
     LaunchedEffect(lifecycleEvents.size) {
         if (lifecycleEvents.isNotEmpty()) {
-            coroutineScope.launch {
-                listState.animateScrollToItem(index = lifecycleEvents.size - 1)
-            }
+            listState.animateScrollToItem(index = lifecycleEvents.size - 1)
         }
     }
 
