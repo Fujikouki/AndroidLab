@@ -129,6 +129,8 @@ private class ReorderableState(
     private val listState: LazyListState,
     private val scope: CoroutineScope
 ) {
+    private val AUTO_SCROLL_SPEED = 30f
+
     fun onDrag(draggedIndex: Int, totalDragOffset: Float, adjustOffset: (Float) -> Unit): Int {
         if (draggedIndex == -1) return -1
 
@@ -146,9 +148,9 @@ private class ReorderableState(
 
             scope.launch {
                 if (itemBottom > viewportBottom - scrollThreshold) {
-                    listState.scrollBy(30f) // 下へスクロール
+                    listState.scrollBy(AUTO_SCROLL_SPEED) // 下へスクロール
                 } else if (itemTop < viewportTop + scrollThreshold) {
-                    listState.scrollBy(-30f) // 上へスクロール
+                    listState.scrollBy(-AUTO_SCROLL_SPEED) // 上へスクロール
                 }
             }
 
