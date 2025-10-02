@@ -21,6 +21,7 @@ import com.example.kouki.fujisue.androidlab.ui.dialog.DialogScreen
 import com.example.kouki.fujisue.androidlab.ui.image.ImageScreen
 import com.example.kouki.fujisue.androidlab.ui.input.InputScreen
 import com.example.kouki.fujisue.androidlab.ui.layout.LayoutsScreen
+import com.example.kouki.fujisue.androidlab.ui.lifecycle.LifecycleScreen
 import com.example.kouki.fujisue.androidlab.ui.list.ListScreen
 import com.example.kouki.fujisue.androidlab.ui.location.LocationScreen
 import com.example.kouki.fujisue.androidlab.ui.main.MainScreen
@@ -125,6 +126,9 @@ fun AppContent() {
             }
             composable<Route.LocationScreen> {
                 LocationScreen()
+            }
+            composable<Route.LifecycleScreen> {
+                LifecycleScreen()
             }
         }
     }

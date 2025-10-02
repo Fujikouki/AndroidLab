@@ -91,4 +91,10 @@ object Route {
      */
     @Serializable
     data object LocationScreen
+
+    /**
+     * ライフサイクルを学ぶ画面
+     */
+    @Serializable
+    data object LifecycleScreen
 }
