@@ -33,6 +33,7 @@ import com.example.kouki.fujisue.androidlab.ui.networking.NetworkingScreen
 import com.example.kouki.fujisue.androidlab.ui.notification.NotificationScreen
 import com.example.kouki.fujisue.androidlab.ui.other.OtherScreen
 import com.example.kouki.fujisue.androidlab.ui.permission.PermissionsScreen
+import com.example.kouki.fujisue.androidlab.ui.reorderablelist.ReorderableListScreen
 import com.example.kouki.fujisue.androidlab.ui.savedinstancestate.SavedInstanceStateScreen
 import com.example.kouki.fujisue.androidlab.ui.sideeffect.SideEffectScreen
 import com.example.kouki.fujisue.androidlab.ui.storage.StorageScreen
@@ -149,6 +150,9 @@ fun AppContent() {
             }
             composable<Route.CanvasScreen> {
                 CanvasScreen()
+            }
+            composable<Route.ReorderableListScreen> {
+                ReorderableListScreen()
             }
         }
     }

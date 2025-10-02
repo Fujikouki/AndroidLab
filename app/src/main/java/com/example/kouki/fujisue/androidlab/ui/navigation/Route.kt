@@ -127,4 +127,10 @@ object Route {
      */
     @Serializable
     data object CanvasScreen
+
+    /**
+     * ドラッグ＆ドロップで並べ替え可能なリストを学ぶ画面
+     */
+    @Serializable
+    data object ReorderableListScreen
 }
