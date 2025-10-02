@@ -14,10 +14,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 
+private const val WEBVIEW_URL = "https://developer.android.com/jetpack/compose"
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WebViewScreen() {
-    val url = "https://developer.android.com/jetpack/compose"
+    val url = WEBVIEW_URL
 
     Scaffold(
         topBar = {
@@ -39,8 +41,9 @@ fun WebViewScreen() {
                 WebView(it).apply {
                     // リンクをWebView内で開くための設定
                     webViewClient = WebViewClient()
-                    // JavaScriptを有効にする
-                    settings.javaScriptEnabled = true
+                    // JavaScriptを無効化する
+                    // 有効化して変化を確かめよう!!
+                    settings.javaScriptEnabled = false
                     // URLを読み込む
                     loadUrl(url)
                 }
