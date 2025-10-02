@@ -3,7 +3,6 @@ package com.example.kouki.fujisue.androidlab.ui.glance
 import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
-import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.glance.Button
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
@@ -27,11 +26,6 @@ import com.example.kouki.fujisue.androidlab.SecondActivity
  * GlanceウィジェットのUIを定義するクラス
  */
 class CounterWidget : GlanceAppWidget() {
-
-    companion object {
-        // カウンターの値を保存するためのPreferences Key
-        internal val countKey = intPreferencesKey("glance_counter_key")
-    }
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
