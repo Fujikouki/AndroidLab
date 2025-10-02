@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AndroidLab</string>
+    <string name="glance_widget_description">A simple counter widget.</string>
 </resources>

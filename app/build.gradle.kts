@@ -62,6 +62,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.constraintlayout.compose)
     implementation(libs.androidx.work.work.runtime)
+    implementation(libs.androidx.glance.appwidget)
+    implementation(libs.androidx.glance.material3)
 
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.okhttp)
