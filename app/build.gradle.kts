@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.constraintlayout.compose)
+    implementation(libs.androidx.work.work.runtime)
 
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.okhttp)
