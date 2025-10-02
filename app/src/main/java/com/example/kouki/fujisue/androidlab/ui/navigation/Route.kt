@@ -103,4 +103,10 @@ object Route {
      */
     @Serializable
     data object ActivityResultScreen
+
+    /**
+     * savedInstanceStateを学ぶ画面
+     */
+    @Serializable
+    data object SavedInstanceStateScreen
 }
