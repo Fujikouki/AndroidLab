@@ -133,4 +133,10 @@ object Route {
      */
     @Serializable
     data object ReorderableListScreen
+
+    /**
+     * WebViewを学ぶ画面
+     */
+    @Serializable
+    data object WebViewScreen
 }

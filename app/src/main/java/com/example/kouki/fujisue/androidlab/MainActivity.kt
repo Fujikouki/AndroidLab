@@ -42,6 +42,7 @@ import com.example.kouki.fujisue.androidlab.ui.theme.AndroidLabTheme
 import com.example.kouki.fujisue.androidlab.ui.theming.ThemeMode
 import com.example.kouki.fujisue.androidlab.ui.theming.ThemingScreen
 import com.example.kouki.fujisue.androidlab.ui.touching.TouchingScreen
+import com.example.kouki.fujisue.androidlab.ui.webview.WebViewScreen
 import com.example.kouki.fujisue.androidlab.ui.workmanager.WorkManagerScreen
 
 class MainActivity : ComponentActivity() {
@@ -153,6 +154,9 @@ fun AppContent() {
             }
             composable<Route.ReorderableListScreen> {
                 ReorderableListScreen()
+            }
+            composable<Route.WebViewScreen> {
+                WebViewScreen()
             }
         }
     }
