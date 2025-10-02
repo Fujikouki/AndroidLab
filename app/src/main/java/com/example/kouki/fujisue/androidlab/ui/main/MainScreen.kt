@@ -42,7 +42,8 @@ fun MainScreen(navController: NavController) {
         Route.StorageScreen to "データ永続化を学ぶ画面",
         Route.LocationScreen to "GPS（位置情報）を学ぶ画面",
         Route.LifecycleScreen to "ライフサイクルを学ぶ画面",
-        Route.ActivityResultScreen to "ActivityResultを学ぶ画面"
+        Route.ActivityResultScreen to "ActivityResultを学ぶ画面",
+        Route.SavedInstanceStateScreen to "savedInstanceStateを学ぶ画面"
     )
 
     Scaffold(
