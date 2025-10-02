@@ -121,4 +121,10 @@ object Route {
      */
     @Serializable
     data object CollapsingToolbarScreen
+
+    /**
+     * カスタム描画とCanvasを学ぶ画面
+     */
+    @Serializable
+    data object CanvasScreen
 }

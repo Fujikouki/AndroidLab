@@ -18,6 +18,7 @@ import com.example.kouki.fujisue.androidlab.ui.activityresult.ActivityResultScre
 import com.example.kouki.fujisue.androidlab.ui.animation.AnimationScreen
 import com.example.kouki.fujisue.androidlab.ui.button.ButtonScreen
 import com.example.kouki.fujisue.androidlab.ui.camera.CameraScreen
+import com.example.kouki.fujisue.androidlab.ui.canvas.CanvasScreen
 import com.example.kouki.fujisue.androidlab.ui.collapsing.CollapsingToolbarScreen
 import com.example.kouki.fujisue.androidlab.ui.dialog.DialogScreen
 import com.example.kouki.fujisue.androidlab.ui.image.ImageScreen
@@ -145,6 +146,9 @@ fun AppContent() {
             }
             composable<Route.CollapsingToolbarScreen> {
                 CollapsingToolbarScreen()
+            }
+            composable<Route.CanvasScreen> {
+                CanvasScreen()
             }
         }
     }
