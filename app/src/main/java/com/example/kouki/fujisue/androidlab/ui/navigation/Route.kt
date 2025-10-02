@@ -97,4 +97,10 @@ object Route {
      */
     @Serializable
     data object LifecycleScreen
+
+    /**
+     * ActivityResultを学ぶ画面
+     */
+    @Serializable
+    data object ActivityResultScreen
 }

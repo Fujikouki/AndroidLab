@@ -41,7 +41,8 @@ fun MainScreen(navController: NavController) {
         Route.NetworkingScreen to "ネットワークリクエストとデータ表示を学ぶ画面",
         Route.StorageScreen to "データ永続化を学ぶ画面",
         Route.LocationScreen to "GPS（位置情報）を学ぶ画面",
-        Route.LifecycleScreen to "ライフサイクルを学ぶ画面" // ★ ここに追加
+        Route.LifecycleScreen to "ライフサイクルを学ぶ画面",
+        Route.ActivityResultScreen to "ActivityResultを学ぶ画面"
     )
 
     Scaffold(
