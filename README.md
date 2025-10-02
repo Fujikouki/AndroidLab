@@ -20,13 +20,18 @@
 - **DialogScreen**: `AlertDialog`を使ったダイアログ表示。
 - **AnimationScreen**: `animateItemPlacement`を使ったリストアイテムのアニメーション。
 - **TouchingScreen**: ジェスチャー操作のハンドリング。
+- **ThemingScreen**: ライト/ダークテーマの切り替えと、Android 12+のダイナミックカラー（Material You）への対応。
+- **CollapsingToolbarScreen**: スクロールと連動するUI（Collapsing Toolbar）の実現。
+- **CanvasScreen**: `Canvas`を使ったカスタム描画。
+- **ReorderableListScreen**: ドラッグ＆ドロップによるリストの並べ替え。
+- **WebViewScreen**: `WebView`コンポーネントを使い、Webコンテンツを表示。
+- **OtherScreen**: その他のUIコンポーネントのサンプル。
 
 ### アプリケーションアーキテクチャ (App Architecture)
-- **StateManagementScreen**: `State`, `remember`, `ViewModel`の役割を比較し、Composeにおける状態管理の基本を学ぶ。
 - **SideEffectScreen**: `LaunchedEffect`, `DisposableEffect`など、コンポジションのライフサイクル外で処理を行う「副作用」の安全な扱い方。
 - **LifecycleScreen**: `ViewModel`と`DisposableEffect`を使って、ActivityやComposableのライフサイクルイベントを監視する方法。
 - **Navigation**: `NavHost`と`rememberNavController`、そしてタイプセーフな`kotlinx.serialization`を使った画面遷移。
-- **ThemingScreen**: ライト/ダークテーマの切り替えと、Android 12+のダイナミックカラー（Material You）への対応。
+- **SavedInstanceStateScreen**: `rememberSaveable`を使い、プロセス終了後もUIの状態を復元。
 
 ### Android API & ライブラリ連携 (Android APIs & Libraries)
 - **PermissionsScreen**: `rememberLauncherForActivityResult`を使った、実行時パーミッションの要求。
@@ -35,6 +40,9 @@
 - **LocationScreen**: `FusedLocationProviderClient`を使い、GPSで現在地の緯度・経度を取得・表示。
 - **NetworkingScreen**: **Ktor**ライブラリを使い、ネットワーク経由でリモートサーバーからJSONデータを取得・表示。
 - **StorageScreen**: **Room**データベースを使い、TODOリストの追加・更新・削除を行う（データの永続化）。
+- **ActivityResultScreen**: `rememberLauncherForActivityResult`を使い、他のアプリからの結果を受け取る。
+- **WorkManagerScreen**: `WorkManager`を使ったバックグラウンド処理の実装。
+- **GlanceWidget**: **Glance**ライブラリを使い、ホーム画面に表示するシンプルなウィジェットを作成。
 
 ## セットアップ (Setup)
 
