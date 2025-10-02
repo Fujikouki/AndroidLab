@@ -109,4 +109,10 @@ object Route {
      */
     @Serializable
     data object SavedInstanceStateScreen
+
+    /**
+     * WorkManagerを学ぶ画面
+     */
+    @Serializable
+    data object WorkManagerScreen
 }
