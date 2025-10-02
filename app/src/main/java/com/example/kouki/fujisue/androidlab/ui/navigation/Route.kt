@@ -115,4 +115,10 @@ object Route {
      */
     @Serializable
     data object WorkManagerScreen
+
+    /**
+     * スクロールと連動するUIを学ぶ画面
+     */
+    @Serializable
+    data object CollapsingToolbarScreen
 }
