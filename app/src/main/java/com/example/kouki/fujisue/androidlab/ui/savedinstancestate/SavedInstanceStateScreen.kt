@@ -34,6 +34,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 fun SavedInstanceStateScreen(viewModel: SavedStateViewModel = viewModel()) {
     // ViewModelから状態を取得
     val vmCount by viewModel.vmCount.collectAsState()
+    val plainVmCount by viewModel.plainVmCount.collectAsState()
 
     // remember: 再コンポーズ間で状態を保持するが、Activityの再生成では保持されない
     var rememberCount by remember { mutableStateOf(0) }
@@ -57,7 +58,7 @@ fun SavedInstanceStateScreen(viewModel: SavedStateViewModel = viewModel()) {
                 .fillMaxSize()
                 .padding(paddingValues)
                 .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             // remember
             StateCard(
@@ -75,10 +76,18 @@ fun SavedInstanceStateScreen(viewModel: SavedStateViewModel = viewModel()) {
                 onIncrement = { saveableCount++ }
             )
 
+            // ViewModel without SavedStateHandle
+            StateCard(
+                title = "ViewModel (Plain)",
+                description = "ViewModel内で状態を保持します。画面回転では維持されますが、プロセスの再作成でリセットされます。",
+                count = plainVmCount,
+                onIncrement = { viewModel.incrementPlainVmCount() }
+            )
+
             // ViewModel with SavedStateHandle
             StateCard(
                 title = "ViewModel & SavedStateHandle",
-                description = "画面回転、プロセスの再作成、さらに画面（Composable）が破棄されても状態を保持します。",
+                description = "SavedStateHandleにより、プロセスの再作成後も状態を復元できます。最も堅牢な方法です。",
                 count = vmCount,
                 onIncrement = { viewModel.incrementVmCount() }
             )
