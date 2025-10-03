@@ -41,7 +41,8 @@ fun MainScreen(navController: NavController) {
                 Route.LayoutsScreen to "レイアウト方法を学ぶ画面",
                 Route.ListScreen to "リスト表示を試す画面",
                 Route.DialogScreen to "ダイアログ表示を試す画面",
-                Route.OtherScreen to "その他のUIコンポーネントを試す画面"
+                Route.OtherScreen to "その他のUIコンポーネントを試す画面",
+                Route.StateScreen to "Composeの状態について学ぶ画面"
             )
         ),
         ScreenSection(

@@ -139,4 +139,10 @@ object Route {
      */
     @Serializable
     data object WebViewScreen
+
+    /**
+     * Composeの状態について学ぶ画面
+     */
+    @Serializable
+    data object StateScreen
 }
