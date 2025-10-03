@@ -68,7 +68,8 @@ fun MainScreen(navController: NavController) {
                 Route.SavedInstanceStateScreen to "savedInstanceStateを学ぶ画面",
                 Route.CameraScreen to "カメラ機能を学ぶ画面",
                 Route.LocationScreen to "GPS（位置情報）を学ぶ画面",
-                Route.WorkManagerScreen to "WorkManagerを学ぶ画面"
+                Route.WorkManagerScreen to "WorkManagerを学ぶ画面",
+                Route.SensorScreen to "センサーについて学ぶ画面"
             )
         ),
         ScreenSection(
