@@ -36,6 +36,7 @@ import com.example.kouki.fujisue.androidlab.ui.permission.PermissionsScreen
 import com.example.kouki.fujisue.androidlab.ui.reorderablelist.ReorderableListScreen
 import com.example.kouki.fujisue.androidlab.ui.savedinstancestate.SavedInstanceStateScreen
 import com.example.kouki.fujisue.androidlab.ui.sideeffect.SideEffectScreen
+import com.example.kouki.fujisue.androidlab.ui.state.StateScreen
 import com.example.kouki.fujisue.androidlab.ui.storage.StorageScreen
 import com.example.kouki.fujisue.androidlab.ui.text.TextScreen
 import com.example.kouki.fujisue.androidlab.ui.theme.AndroidLabTheme
@@ -157,6 +158,9 @@ fun AppContent() {
             }
             composable<Route.WebViewScreen> {
                 WebViewScreen()
+            }
+            composable<Route.StateScreen> {
+                StateScreen()
             }
         }
     }
