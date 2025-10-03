@@ -22,7 +22,7 @@ android {
 
     buildTypes {
 
-        // デバックビルドの場合
+        // デバッグビルドの場合
         debug {
             isMinifyEnabled = false
             applicationIdSuffix = ".debug"
