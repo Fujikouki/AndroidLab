@@ -145,4 +145,10 @@ object Route {
      */
     @Serializable
     data object StateScreen
+
+    /**
+     * センサーについて学ぶ画面
+     */
+    @Serializable
+    data object SensorScreen
 }
