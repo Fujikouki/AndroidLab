@@ -2,7 +2,9 @@ package com.example.kouki.fujisue.androidlab.ui.state
 
 import android.util.Log
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -45,6 +47,8 @@ fun StateScreen() {
                 .verticalScroll(rememberScrollState())
         ) {
             StateAndNoStateExample()
+            Spacer(modifier = Modifier.height(32.dp))
+            StableAndUnstableExample()
         }
     }
 }
@@ -78,4 +82,43 @@ private fun StateAndNoStateExample() {
         Log.d(TAG, "Button 2 recomposed")
         Text("Counter with state: $countWithState")
     }
+}
+
+// 不安定なデータクラス
+private class UnstableData(var name: String)
+
+// 安定なデータクラス
+private data class StableData(val name: String)
+
+@Composable
+private fun StableAndUnstableExample() {
+    Log.d(TAG, "StableAndUnstableExample recomposed")
+
+    val unstableData = remember { UnstableData("initial") }
+    val stableData = remember { StableData("initial") }
+
+    var recompositionTrigger by remember { mutableIntStateOf(0) }
+
+    Text("安定性の違いによる再描画の違い")
+    Button(onClick = { recompositionTrigger++ }) {
+        Text("Trigger Recomposition")
+    }
+
+    // このTextで状態を読み取ることで、再コンポーズがトリガーされることを保証します。
+    Text(text = "Trigger count: $recompositionTrigger")
+
+    UnstableComposable(data = unstableData)
+    StableComposable(data = stableData)
+}
+
+@Composable
+private fun UnstableComposable(data: UnstableData) {
+    Log.d(TAG, "UnstableComposable recomposed with data: ${data.name}")
+    Text(text = "Unstable: ${data.name}")
+}
+
+@Composable
+private fun StableComposable(data: StableData) {
+    Log.d(TAG, "StableComposable recomposed with data: ${data.name}")
+    Text(text = "Stable: ${data.name}")
 }
