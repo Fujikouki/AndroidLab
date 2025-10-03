@@ -12,8 +12,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
@@ -25,6 +29,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import kotlin.math.roundToInt
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SensorScreen() {
     val context = LocalContext.current
@@ -104,57 +109,69 @@ fun SensorScreen() {
             sensorManager.unregisterListener(sensorEventListener)
         }
     }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-            .verticalScroll(rememberScrollState())
-    ) {
-        Text("センサーの値", style = MaterialTheme.typography.headlineMedium)
-        Spacer(Modifier.height(16.dp))
-
-        // Accelerometer
-        if (accelerometerSensor != null) {
-            Text("加速度センサー (m/s^2)", style = MaterialTheme.typography.titleLarge)
-            Text("X: ${accelerometerValues[0]}")
-            Text("Y: ${accelerometerValues[1]}")
-            Text("Z: ${accelerometerValues[2]}")
-        } else {
-            Text("加速度センサーは利用できません")
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Sensor Examples") },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    titleContentColor = MaterialTheme.colorScheme.primary,
+                )
+            )
         }
-        Spacer(Modifier.height(16.dp))
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
+            Text("センサーの値", style = MaterialTheme.typography.headlineMedium)
+            Spacer(Modifier.height(16.dp))
 
-        // Gyroscope
-        if (gyroscopeSensor != null) {
-            Text("ジャイロスコープ (rad/s)", style = MaterialTheme.typography.titleLarge)
-            Text("X: ${gyroscopeValues[0]}")
-            Text("Y: ${gyroscopeValues[1]}")
-            Text("Z: ${gyroscopeValues[2]}")
-        } else {
-            Text("ジャイロスコープは利用できません")
-        }
-        Spacer(Modifier.height(16.dp))
+            // Accelerometer
+            if (accelerometerSensor != null) {
+                Text("加速度センサー (m/s^2)", style = MaterialTheme.typography.titleLarge)
+                Text("X: ${accelerometerValues[0]}")
+                Text("Y: ${accelerometerValues[1]}")
+                Text("Z: ${accelerometerValues[2]}")
+            } else {
+                Text("加速度センサーは利用できません")
+            }
+            Spacer(Modifier.height(16.dp))
 
-        // Magnetic Field
-        if (magneticFieldSensor != null) {
-            Text("磁力センサー (μT)", style = MaterialTheme.typography.titleLarge)
-            Text("X: ${magneticFieldValues[0]}")
-            Text("Y: ${magneticFieldValues[1]}")
-            Text("Z: ${magneticFieldValues[2]}")
-        } else {
-            Text("磁力センサーは利用できません")
-        }
-        Spacer(Modifier.height(16.dp))
+            // Gyroscope
+            if (gyroscopeSensor != null) {
+                Text("ジャイロスコープ (rad/s)", style = MaterialTheme.typography.titleLarge)
+                Text("X: ${gyroscopeValues[0]}")
+                Text("Y: ${gyroscopeValues[1]}")
+                Text("Z: ${gyroscopeValues[2]}")
+            } else {
+                Text("ジャイロスコープは利用できません")
+            }
+            Spacer(Modifier.height(16.dp))
 
-        // Orientation
-        if (accelerometerSensor != null && magneticFieldSensor != null) {
-            Text("端末の向き", style = MaterialTheme.typography.titleLarge)
-            Text("方位角 (Azimuth): ${orientationValues[0].roundToInt()}°") // Z-axis rotation
-            Text("傾斜 (Pitch): ${orientationValues[1].roundToInt()}°") // X-axis rotation
-            Text("ロール (Roll): ${orientationValues[2].roundToInt()}°") // Y-axis rotation
-        } else {
-            Text("端末の向きは計算できません")
+            // Magnetic Field
+            if (magneticFieldSensor != null) {
+                Text("磁力センサー (μT)", style = MaterialTheme.typography.titleLarge)
+                Text("X: ${magneticFieldValues[0]}")
+                Text("Y: ${magneticFieldValues[1]}")
+                Text("Z: ${magneticFieldValues[2]}")
+            } else {
+                Text("磁力センサーは利用できません")
+            }
+            Spacer(Modifier.height(16.dp))
+
+            // Orientation
+            if (accelerometerSensor != null && magneticFieldSensor != null) {
+                Text("端末の向き", style = MaterialTheme.typography.titleLarge)
+                Text("方位角 (Azimuth): ${orientationValues[0].roundToInt()}°") // Z-axis rotation
+                Text("傾斜 (Pitch): ${orientationValues[1].roundToInt()}°") // X-axis rotation
+                Text("ロール (Roll): ${orientationValues[2].roundToInt()}°") // Y-axis rotation
+            } else {
+                Text("端末の向きは計算できません")
+            }
         }
     }
 }
