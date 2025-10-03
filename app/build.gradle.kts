@@ -21,8 +21,17 @@ android {
     }
 
     buildTypes {
-        release {
+
+        // デバックビルドの場合
+        debug {
             isMinifyEnabled = false
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-debug"
+        }
+
+        // リリースビルドの場合
+        release {
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
