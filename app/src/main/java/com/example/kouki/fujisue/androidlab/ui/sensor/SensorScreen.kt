@@ -5,14 +5,25 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Build
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -24,10 +35,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import kotlin.math.abs
 import kotlin.math.roundToInt
+
+// Normalization constants for progress indicators
+private const val MAX_ACCELEROMETER = 20f // approx 2g
+private const val MAX_GYROSCOPE = 10f // rad/s
+private const val MAX_MAGNETIC_FIELD = 100f // μT
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,8 +64,8 @@ fun SensorScreen() {
     var magneticFieldValues by remember { mutableStateOf(floatArrayOf(0f, 0f, 0f)) }
     var gyroscopeValues by remember { mutableStateOf(floatArrayOf(0f, 0f, 0f)) }
     var orientationValues by remember { mutableStateOf(floatArrayOf(0f, 0f, 0f)) }
-    var gravity = remember<FloatArray?> { null }
-    var geomagnetic = remember<FloatArray?> { null }
+    var gravity by remember { mutableStateOf<FloatArray?>(null) }
+    var geomagnetic by remember { mutableStateOf<FloatArray?>(null) }
 
     // --- Sensor Availability ---
     val accelerometerSensor = remember { sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) }
@@ -76,9 +98,7 @@ fun SensorScreen() {
                 if (currentGravity != null && currentGeomagnetic != null) {
                     val r = FloatArray(9)
                     val i = FloatArray(9)
-                    val success =
-                        SensorManager.getRotationMatrix(r, i, currentGravity, currentGeomagnetic)
-                    if (success) {
+                    if (SensorManager.getRotationMatrix(r, i, currentGravity, currentGeomagnetic)) {
                         val orientation = FloatArray(3)
                         SensorManager.getOrientation(r, orientation)
                         orientationValues =
@@ -88,27 +108,23 @@ fun SensorScreen() {
                 }
             }
 
-            override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-                // Not used
-            }
+            override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
         }
     }
 
     DisposableEffect(Unit) {
-        val sensorsToRegister =
-            listOfNotNull(accelerometerSensor, magneticFieldSensor, gyroscopeSensor)
-        sensorsToRegister.forEach { sensor ->
+        listOfNotNull(accelerometerSensor, magneticFieldSensor, gyroscopeSensor).forEach { sensor ->
             sensorManager.registerListener(
                 sensorEventListener,
                 sensor,
                 SensorManager.SENSOR_DELAY_UI
             )
         }
-
         onDispose {
             sensorManager.unregisterListener(sensorEventListener)
         }
     }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -120,58 +136,168 @@ fun SensorScreen() {
             )
         }
     ) { paddingValues ->
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
-                .padding(16.dp)
-                .verticalScroll(rememberScrollState())
+                .padding(paddingValues),
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Text("センサーの値", style = MaterialTheme.typography.headlineMedium)
-            Spacer(Modifier.height(16.dp))
+            item {
+                Text(
+                    text = "端末のセンサー値を視覚的に表示します。",
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+            }
 
-            // Accelerometer
             if (accelerometerSensor != null) {
-                Text("加速度センサー (m/s^2)", style = MaterialTheme.typography.titleLarge)
-                Text("X: ${accelerometerValues[0]}")
-                Text("Y: ${accelerometerValues[1]}")
-                Text("Z: ${accelerometerValues[2]}")
-            } else {
-                Text("加速度センサーは利用できません")
+                item {
+                    SensorDataCard(
+                        title = "加速度センサー",
+                        unit = "m/s²",
+                        icon = Icons.Default.Build,
+                        labels = listOf("X", "Y", "Z"),
+                        values = accelerometerValues,
+                        normalizer = { abs(it) / MAX_ACCELEROMETER }
+                    )
+                }
             }
-            Spacer(Modifier.height(16.dp))
 
-            // Gyroscope
             if (gyroscopeSensor != null) {
-                Text("ジャイロスコープ (rad/s)", style = MaterialTheme.typography.titleLarge)
-                Text("X: ${gyroscopeValues[0]}")
-                Text("Y: ${gyroscopeValues[1]}")
-                Text("Z: ${gyroscopeValues[2]}")
-            } else {
-                Text("ジャイロスコープは利用できません")
+                item {
+                    SensorDataCard(
+                        title = "ジャイロスコープ",
+                        unit = "rad/s",
+                        icon = Icons.Default.Build,
+                        labels = listOf("X", "Y", "Z"),
+                        values = gyroscopeValues,
+                        normalizer = { abs(it) / MAX_GYROSCOPE }
+                    )
+                }
             }
-            Spacer(Modifier.height(16.dp))
 
-            // Magnetic Field
             if (magneticFieldSensor != null) {
-                Text("磁力センサー (μT)", style = MaterialTheme.typography.titleLarge)
-                Text("X: ${magneticFieldValues[0]}")
-                Text("Y: ${magneticFieldValues[1]}")
-                Text("Z: ${magneticFieldValues[2]}")
-            } else {
-                Text("磁力センサーは利用できません")
+                item {
+                    SensorDataCard(
+                        title = "磁力センサー",
+                        unit = "μT",
+                        icon = Icons.Default.Build,
+                        labels = listOf("X", "Y", "Z"),
+                        values = magneticFieldValues,
+                        normalizer = { abs(it) / MAX_MAGNETIC_FIELD }
+                    )
+                }
             }
-            Spacer(Modifier.height(16.dp))
 
-            // Orientation
             if (accelerometerSensor != null && magneticFieldSensor != null) {
-                Text("端末の向き", style = MaterialTheme.typography.titleLarge)
-                Text("方位角 (Azimuth): ${orientationValues[0].roundToInt()}°") // Z-axis rotation
-                Text("傾斜 (Pitch): ${orientationValues[1].roundToInt()}°") // X-axis rotation
-                Text("ロール (Roll): ${orientationValues[2].roundToInt()}°") // Y-axis rotation
-            } else {
-                Text("端末の向きは計算できません")
+                item {
+                    SensorDataCard(
+                        title = "端末の向き",
+                        unit = "°",
+                        icon = Icons.Default.Build,
+                        labels = listOf("方位角", "傾斜", "ロール"),
+                        values = orientationValues,
+                        valueFormatter = { it.roundToInt().toString() },
+                        normalizer = { value ->
+                            when (value) {
+                                orientationValues[0] -> (value + 360) % 360 / 360f // Azimuth (0 to 360)
+                                orientationValues[1] -> (value + 180) / 360f // Pitch (-180 to 180)
+                                else -> (value + 90) / 180f // Roll (-90 to 90)
+                            }
+                        }
+                    )
+                }
             }
         }
+    }
+}
+
+@Composable
+fun SensorDataCard(
+    title: String,
+    unit: String,
+    icon: ImageVector,
+    labels: List<String>,
+    values: FloatArray,
+    valueFormatter: (Float) -> String = { "%.2f".format(it) },
+    normalizer: (Float) -> Float
+) {
+    Card(
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        shape = RoundedCornerShape(12.dp),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = title,
+                    tint = MaterialTheme.colorScheme.primary
+                )
+                Spacer(Modifier.width(12.dp))
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
+                )
+                Spacer(Modifier.weight(1f))
+                Text(text = "($unit)", style = MaterialTheme.typography.bodyMedium)
+            }
+            Spacer(Modifier.height(16.dp))
+
+            if (values.isNotEmpty() && labels.size == values.size) {
+                labels.forEachIndexed { index, label ->
+                    val value = values[index]
+                    SensorValueRow(
+                        label = label,
+                        value = value,
+                        formattedValue = valueFormatter(value),
+                        normalizedValue = normalizer(value)
+                    )
+                    if (index < labels.lastIndex) {
+                        Spacer(Modifier.height(8.dp))
+                    }
+                }
+            } else {
+                Text("データを待っています...")
+            }
+        }
+    }
+}
+
+@Composable
+fun SensorValueRow(
+    label: String,
+    value: Float,
+    formattedValue: String,
+    normalizedValue: Float
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Text(
+            text = label,
+            modifier = Modifier.width(60.dp),
+            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium)
+        )
+        LinearProgressIndicator(
+            progress = { normalizedValue.coerceIn(0f, 1f) },
+            modifier = Modifier
+                .weight(1f)
+                .height(8.dp)
+                .clip(RoundedCornerShape(4.dp))
+        )
+        Text(
+            text = formattedValue,
+            modifier = Modifier
+                .width(70.dp)
+                .padding(start = 12.dp),
+            style = MaterialTheme.typography.bodyLarge.copy(
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 15.sp,
+                color = MaterialTheme.colorScheme.secondary
+            )
+        )
     }
 }
