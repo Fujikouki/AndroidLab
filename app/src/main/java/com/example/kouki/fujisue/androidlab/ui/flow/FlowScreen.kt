@@ -24,14 +24,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.kouki.fujisue.androidlab.ui.theme.AndroidLabTheme
 import kotlinx.coroutines.flow.collectLatest
 
 /**
  * StateFlowとSharedFlowを学ぶための画面
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FlowScreen(viewModel: FlowViewModel = viewModel()) {
     val state by viewModel.stateFlow.collectAsState()
@@ -43,6 +44,22 @@ fun FlowScreen(viewModel: FlowViewModel = viewModel()) {
         }
     }
 
+    FlowScreenContent(
+        state = state,
+        snackbarHostState = snackbarHostState,
+        onIncrementStateFlow = { viewModel.incrementStateFlow() },
+        onTriggerSharedFlow = { viewModel.triggerSharedFlow() }
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun FlowScreenContent(
+    state: Int,
+    snackbarHostState: SnackbarHostState,
+    onIncrementStateFlow: () -> Unit,
+    onTriggerSharedFlow: () -> Unit
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -67,7 +84,7 @@ fun FlowScreen(viewModel: FlowViewModel = viewModel()) {
                 description = "現在の状態を保持し、新しいコレクターに最新の値をすぐに提供します。UIの状態管理に最適です。",
                 value = "StateFlow: $state",
                 buttonText = "Increment StateFlow",
-                onButtonClick = { viewModel.incrementStateFlow() }
+                onButtonClick = onIncrementStateFlow
             )
             Spacer(modifier = Modifier.height(16.dp))
             FlowCard(
@@ -75,7 +92,7 @@ fun FlowScreen(viewModel: FlowViewModel = viewModel()) {
                 description = "イベントを複数のコレクターにブロードキャストします。一度きりのイベント（例: Snackbar表示）に適しています。",
                 value = "Trigger a one-time event",
                 buttonText = "Trigger SharedFlow",
-                onButtonClick = { viewModel.triggerSharedFlow() }
+                onButtonClick = onTriggerSharedFlow
             )
         }
     }
@@ -107,5 +124,18 @@ private fun FlowCard(
                 Text(buttonText)
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun FlowScreenPreview() {
+    AndroidLabTheme {
+        FlowScreenContent(
+            state = 10,
+            snackbarHostState = remember { SnackbarHostState() },
+            onIncrementStateFlow = {},
+            onTriggerSharedFlow = {}
+        )
     }
 }
