@@ -157,4 +157,10 @@ object Route {
      */
     @Serializable
     data object DataStoreScreen
+
+    /**
+     * Flowを学ぶ画面
+     */
+    @Serializable
+    data object FlowScreen
 }

@@ -22,6 +22,7 @@ import com.example.kouki.fujisue.androidlab.ui.canvas.CanvasScreen
 import com.example.kouki.fujisue.androidlab.ui.collapsing.CollapsingToolbarScreen
 import com.example.kouki.fujisue.androidlab.ui.datastore.DataStoreScreen
 import com.example.kouki.fujisue.androidlab.ui.dialog.DialogScreen
+import com.example.kouki.fujisue.androidlab.ui.flow.FlowScreen
 import com.example.kouki.fujisue.androidlab.ui.image.ImageScreen
 import com.example.kouki.fujisue.androidlab.ui.input.InputScreen
 import com.example.kouki.fujisue.androidlab.ui.layout.LayoutsScreen
@@ -169,6 +170,9 @@ fun AppContent() {
             }
             composable<Route.DataStoreScreen> {
                 DataStoreScreen()
+            }
+            composable<Route.FlowScreen> {
+                FlowScreen()
             }
         }
     }
