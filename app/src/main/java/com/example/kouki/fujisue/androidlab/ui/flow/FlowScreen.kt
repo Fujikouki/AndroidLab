@@ -1,12 +1,15 @@
 package com.example.kouki.fujisue.androidlab.ui.flow
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -42,18 +45,53 @@ fun FlowScreen(viewModel: FlowViewModel = viewModel()) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues),
+                .padding(paddingValues)
+                .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
         ) {
-            Text(text = "StateFlow: $state")
+            FlowCard(
+                title = "StateFlow",
+                description = "現在の状態を保持し、新しいコレクターに最新の値をすぐに提供します。UIの状態管理に最適です。",
+                value = "StateFlow: $state",
+                buttonText = "Increment StateFlow",
+                onButtonClick = { viewModel.incrementStateFlow() }
+            )
             Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = { viewModel.incrementStateFlow() }) {
-                Text("Increment StateFlow")
-            }
+            FlowCard(
+                title = "SharedFlow",
+                description = "イベントを複数のコレクターにブロードキャストします。一度きりのイベント（例: Snackbar表示）に適しています。",
+                value = "Trigger a one-time event",
+                buttonText = "Trigger SharedFlow",
+                onButtonClick = { viewModel.triggerSharedFlow() }
+            )
+        }
+    }
+}
+
+@Composable
+private fun FlowCard(
+    title: String,
+    description: String,
+    value: String,
+    buttonText: String,
+    onButtonClick: () -> Unit
+) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(4.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(text = title, style = MaterialTheme.typography.headlineSmall)
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(text = description, style = MaterialTheme.typography.bodyMedium)
             Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = { viewModel.triggerSharedFlow() }) {
-                Text("Trigger SharedFlow")
+            Text(text = value, style = MaterialTheme.typography.titleLarge)
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(onClick = onButtonClick) {
+                Text(buttonText)
             }
         }
     }
