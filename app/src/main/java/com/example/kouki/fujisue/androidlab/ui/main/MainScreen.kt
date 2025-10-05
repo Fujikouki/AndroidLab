@@ -76,7 +76,8 @@ fun MainScreen(navController: NavController) {
             title = "バックエンド & アーキテクチャ",
             screens = listOf(
                 Route.NetworkingScreen to "ネットワークリクエストとデータ表示を学ぶ画面",
-                Route.StorageScreen to "データ永続化を学ぶ画面"
+                Route.StorageScreen to "データ永続化を学ぶ画面",
+                Route.DataStoreScreen to "DataStoreを学ぶ画面"
             )
         )
     )

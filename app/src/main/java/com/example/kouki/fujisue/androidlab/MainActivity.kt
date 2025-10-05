@@ -20,6 +20,7 @@ import com.example.kouki.fujisue.androidlab.ui.button.ButtonScreen
 import com.example.kouki.fujisue.androidlab.ui.camera.CameraScreen
 import com.example.kouki.fujisue.androidlab.ui.canvas.CanvasScreen
 import com.example.kouki.fujisue.androidlab.ui.collapsing.CollapsingToolbarScreen
+import com.example.kouki.fujisue.androidlab.ui.datastore.DataStoreScreen
 import com.example.kouki.fujisue.androidlab.ui.dialog.DialogScreen
 import com.example.kouki.fujisue.androidlab.ui.image.ImageScreen
 import com.example.kouki.fujisue.androidlab.ui.input.InputScreen
@@ -165,6 +166,9 @@ fun AppContent() {
             }
             composable<Route.SensorScreen> {
                 SensorScreen()
+            }
+            composable<Route.DataStoreScreen> {
+                DataStoreScreen()
             }
         }
     }

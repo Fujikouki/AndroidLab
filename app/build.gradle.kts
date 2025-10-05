@@ -76,6 +76,7 @@ dependencies {
     implementation(libs.androidx.work.work.runtime)
     implementation(libs.androidx.glance.appwidget)
     implementation(libs.androidx.glance.material3)
+    implementation(libs.androidx.datastore.preferences)
 
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.okhttp)

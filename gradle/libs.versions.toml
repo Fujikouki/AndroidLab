@@ -17,6 +17,7 @@ room_version = "2.8.0"
 google_services = "21.3.0"
 work_version = "2.10.4"
 glance_version = "1.1.1"
+datastore = "1.1.7"
 
 
 [libraries]
@@ -58,6 +59,9 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room_version" }
 androidx-room-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room_version" }
 androidx-room-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room_version" }
+
+# Datastore
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 
 # Location
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "google_services" }

@@ -151,4 +151,10 @@ object Route {
      */
     @Serializable
     data object SensorScreen
+
+    /**
+     * DataStoreを学ぶ画面
+     */
+    @Serializable
+    data object DataStoreScreen
 }
