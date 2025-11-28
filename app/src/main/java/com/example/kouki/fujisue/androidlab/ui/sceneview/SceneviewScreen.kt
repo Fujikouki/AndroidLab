@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.kouki.fujisue.androidlab.ui.theme.AndroidLabTheme
 import io.github.sceneview.Scene
 import io.github.sceneview.node.ModelNode
+import io.github.sceneview.rememberCameraNode
 import io.github.sceneview.rememberEngine
 import io.github.sceneview.rememberModelLoader
 import io.github.sceneview.rememberNodes
@@ -55,17 +56,25 @@ fun SceneviewScreen() {
                         modelInstance = modelLoader.createModelInstance(
                             assetFileLocation = "model.glb"
                         ),
-                        scaleToUnits = 1.0f // モデルのサイズを1メートル（SceneViewの単位）に正規化
+                        scaleToUnits = 1.0f, // モデルのサイズを1メートル（SceneViewの単位）に正規化
                     ).apply {
                         // 必要に応じて初期位置などを調整
                         position = io.github.sceneview.math.Position(
                             x = 0.0f,
-                            y = 0.0f,
-                            z = -2.0f
+                            y = -0.6f,
+                            z = 0.0f
                         ) // カメラの少し奥に配置
-                        isEditable = true // ユーザーによる回転・移動操作を許可
+                        isEditable = false // ユーザーによる回転・移動操作を許可
                     }
                 )
+            }
+
+            val cameraNode = rememberCameraNode(engine = engine).apply {
+                // カメラ操作
+                isEditable = false
+                isRotationEditable = false
+                isPositionEditable = false
+                isTouchable = false
             }
 
             // 3. Scene（ビュー）の表示
@@ -74,6 +83,7 @@ fun SceneviewScreen() {
                 engine = engine,
                 modelLoader = modelLoader,
                 childNodes = childNodes,
+                cameraNode = cameraNode,
                 // 背景色や環境光などをここで設定可能
                 onFrame = { _ ->
                     // 毎フレームの更新処理が必要な場合はここに記述
