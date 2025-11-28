@@ -37,6 +37,7 @@ import com.example.kouki.fujisue.androidlab.ui.other.OtherScreen
 import com.example.kouki.fujisue.androidlab.ui.permission.PermissionsScreen
 import com.example.kouki.fujisue.androidlab.ui.reorderablelist.ReorderableListScreen
 import com.example.kouki.fujisue.androidlab.ui.savedinstancestate.SavedInstanceStateScreen
+import com.example.kouki.fujisue.androidlab.ui.sceneview.SceneviewScreen
 import com.example.kouki.fujisue.androidlab.ui.sensor.SensorScreen
 import com.example.kouki.fujisue.androidlab.ui.sideeffect.SideEffectScreen
 import com.example.kouki.fujisue.androidlab.ui.state.StateScreen
@@ -173,6 +174,9 @@ fun AppContent() {
             }
             composable<Route.FlowScreen> {
                 FlowScreen()
+            }
+            composable<Route.SceneviewScreen> {
+                SceneviewScreen()
             }
         }
     }

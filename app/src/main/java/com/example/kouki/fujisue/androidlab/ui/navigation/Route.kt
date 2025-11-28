@@ -163,4 +163,10 @@ object Route {
      */
     @Serializable
     data object FlowScreen
+
+    /**
+     * sceneviewを学ぶ画面
+     */
+    @Serializable
+    data object SceneviewScreen
 }
