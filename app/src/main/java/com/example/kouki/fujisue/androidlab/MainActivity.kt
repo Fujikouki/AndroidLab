@@ -35,6 +35,7 @@ import com.example.kouki.fujisue.androidlab.ui.networking.NetworkingScreen
 import com.example.kouki.fujisue.androidlab.ui.notification.NotificationScreen
 import com.example.kouki.fujisue.androidlab.ui.other.OtherScreen
 import com.example.kouki.fujisue.androidlab.ui.permission.PermissionsScreen
+import com.example.kouki.fujisue.androidlab.ui.play.SmoothRouletteScreen
 import com.example.kouki.fujisue.androidlab.ui.reorderablelist.ReorderableListScreen
 import com.example.kouki.fujisue.androidlab.ui.savedinstancestate.SavedInstanceStateScreen
 import com.example.kouki.fujisue.androidlab.ui.sensor.SensorScreen
@@ -173,6 +174,9 @@ fun AppContent() {
             }
             composable<Route.FlowScreen> {
                 FlowScreen()
+            }
+            composable<Route.RouletteScreen> {
+                SmoothRouletteScreen()
             }
         }
     }

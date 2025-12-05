@@ -54,7 +54,8 @@ fun MainScreen(navController: NavController) {
                 Route.CollapsingToolbarScreen to "スクロールと連動するUIを学ぶ画面",
                 Route.CanvasScreen to "カスタム描画とCanvasを学ぶ画面",
                 Route.ReorderableListScreen to "ドラッグ＆ドロップで並べ替え可能なリストを学ぶ画面",
-                Route.WebViewScreen to "WebViewを学ぶ画面"
+                Route.WebViewScreen to "WebViewを学ぶ画面",
+                Route.RouletteScreen to "ルーレットで遊べる画面"
             )
         ),
         ScreenSection(
