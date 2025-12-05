@@ -25,12 +25,16 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
@@ -50,6 +54,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.kouki.fujisue.androidlab.ui.theme.AndroidLabTheme
 import kotlinx.coroutines.launch
 import kotlin.math.cos
 import kotlin.math.sin
@@ -60,9 +65,34 @@ val RouletteColors = listOf(
     Color(0xFFFFD54F), Color(0xFFBA68C8), Color(0xFF4DB6AC)
 )
 
-@Preview
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SmoothRouletteScreen() {
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("ルーレット") },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    titleContentColor = MaterialTheme.colorScheme.primary
+                )
+            )
+        }
+    ) { paddingValues ->
+        SmoothRouletteContent(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+        )
+    }
+}
+
+@Composable
+private fun SmoothRouletteContent(
+    modifier: Modifier = Modifier
+) {
     val items = remember { mutableStateListOf("大吉", "中吉", "小吉", "凶") }
     val rotationAngle = remember { Animatable(0f) }
     var resultText by remember { mutableStateOf("スタートボタンを押してね") }
@@ -83,7 +113,7 @@ fun SmoothRouletteScreen() {
     }
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -217,6 +247,13 @@ fun SmoothRouletteScreen() {
                 Icon(Icons.Default.Add, contentDescription = "Add")
             }
         }
+    }
+}
 
+@Preview
+@Composable
+private fun PreviewSmoothRouletteScreen() {
+    AndroidLabTheme {
+        SmoothRouletteScreen()
     }
 }
