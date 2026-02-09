@@ -163,4 +163,10 @@ object Route {
      */
     @Serializable
     data object FlowScreen
+
+    /**
+     * ルーレット画面
+     */
+    @Serializable
+    data object RouletteScreen
 }
