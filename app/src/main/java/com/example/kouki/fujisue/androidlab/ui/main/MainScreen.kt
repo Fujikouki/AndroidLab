@@ -66,6 +66,7 @@ fun MainScreen(navController: NavController) {
                 Route.PermissionsScreen to "実行時パーミッションの扱い方を学ぶ画面",
                 Route.NotificationScreen to "通知を学ぶ画面",
                 Route.ActivityResultScreen to "ActivityResultを学ぶ画面",
+                Route.DeepLinkScreen to "ディープリンクを学ぶ画面",
                 Route.SavedInstanceStateScreen to "savedInstanceStateを学ぶ画面",
                 Route.CameraScreen to "カメラ機能を学ぶ画面",
                 Route.LocationScreen to "GPS（位置情報）を学ぶ画面",

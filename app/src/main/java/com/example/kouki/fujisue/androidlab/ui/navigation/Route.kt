@@ -105,6 +105,12 @@ object Route {
     data object ActivityResultScreen
 
     /**
+     * ディープリンクを学ぶ画面
+     */
+    @Serializable
+    data object DeepLinkScreen
+
+    /**
      * savedInstanceStateを学ぶ画面
      */
     @Serializable
