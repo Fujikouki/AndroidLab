@@ -11,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.navDeepLink
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -21,6 +22,7 @@ import com.example.kouki.fujisue.androidlab.ui.camera.CameraScreen
 import com.example.kouki.fujisue.androidlab.ui.canvas.CanvasScreen
 import com.example.kouki.fujisue.androidlab.ui.collapsing.CollapsingToolbarScreen
 import com.example.kouki.fujisue.androidlab.ui.datastore.DataStoreScreen
+import com.example.kouki.fujisue.androidlab.ui.deeplink.DeepLinkScreen
 import com.example.kouki.fujisue.androidlab.ui.dialog.DialogScreen
 import com.example.kouki.fujisue.androidlab.ui.flow.FlowScreen
 import com.example.kouki.fujisue.androidlab.ui.image.ImageScreen
@@ -143,6 +145,14 @@ fun AppContent() {
             }
             composable<Route.ActivityResultScreen> {
                 ActivityResultScreen()
+            }
+            composable<Route.DeepLinkScreen>(
+                deepLinks = listOf(
+                    navDeepLink { uriPattern = "androidlab://demo/deeplink" },
+                    navDeepLink { uriPattern = "https://androidlab.example.com/deeplink" }
+                )
+            ) {
+                DeepLinkScreen()
             }
             composable<Route.SavedInstanceStateScreen> {
                 SavedInstanceStateScreen()
